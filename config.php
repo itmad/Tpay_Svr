@@ -108,12 +108,13 @@ function succDo($mark_sell,$money,$task_extra){
 		}
 
 		$flag = $mailer->send($extra[0], $title, $content);
+		$task_result="";
 		if($flag){
-			echo "邮件发送成功！".$task_extra;
+			$task_result= "邮件发送成功！".$task_extra;
 		}else{
-			echo "邮件发送失败！".$task_extra;
+			$task_result= "邮件发送失败！".$task_extra;
 		}
-		return;
+		return $task_result;
 	}
 	
 	
