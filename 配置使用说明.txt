@@ -1,0 +1,62 @@
+!!!你们一开始学习，一开始只修改config.php这一个文件即可。
+
+
+一、文件列表解析（有效文件也就五个）：
+1、config.php			不能直接访问		主要配置就在这里
+2、common.php			不能直接方位		一些通用函数放在里面
+3、sql.php				不能直接访问		几乎所有的sql执行函数都放在这里面
+
+4、pay.php				直接访问			客户端和服务端交互的API放在这里面
+5、phone.php（请改名）	直接访问			手机服务端和服务器交互的API放在这里
+
+----->下面两个文件是给你们照葫芦画瓢用的，你们可以删除
+6、index.html			直接访问			是给你们照葫芦画瓢的静态页，不用的你们可以删除
+7、tpay.css				直接访问			你们可以和index.html一起删除，是测试页面的样式文件
+
+
+
+
+二、客户端请求API如下：超简单，也就两个API
+请求方式为：POST、POST、POST、POST、POST、POST、POST、POST
+
+1、获取支付二维码			（此api会自动以阻塞方式等待二维码，超时时长为10秒）
+
+	地址：	pay.php
+	参数：	command			applyqr			必须，固定值
+			money							必须，整数，单位为分
+			channel			wechat/alipay	必须，二选一
+			其它参数		任意个			用于Config.php中的applyDo函数构造task_extra
+			
+	返回：
+		{"message":"ok","data":{"url":"wxp://f2f14TiGjC0Iy5WiqNbmB-8gz3RNsEhQ0HLY","mark_sell":"编号：1538115871304"},"status":1}
+
+
+
+
+2、获取支付二维码			（此api会自动以阻塞方式等待二维码，超时时长为10秒）
+
+	地址：	pay.php
+	参数：	command			ispayed					必须，固定值
+			mark_sell								订单的卖家备注信息
+			qr				当前返回的二维码		防止有人只万能尝试mark_sell从而得到extra信息
+			
+	返回：
+		{"message":"ok","data":"自己设置的extra值","status":1}或{"message":"err","data":"","status":0}
+		
+
+		
+		
+		
+		
+常见问题：
+1、sql导入失败时
+	解决方案：记事本打开t_pay.sql，搜索utf8mb4并改为utf8，再搜索CURRENT_TIMESTAMP(0)改为CURRENT_TIMESTAMP
+				不同mysql版本的代码兼容是有问题的，不过我现在改为低版本了，应该不会出现这类问题了。
+2、php5.6以下版本报错时
+	解决方案：现在好像不用解决了，兼容了。。。
+	
+	
+	
+	
+	
+	
