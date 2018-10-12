@@ -2,6 +2,7 @@
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
+
 CREATE TABLE `pay_black`  (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip` char(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '要加黑名单的IP值',
@@ -36,6 +37,7 @@ CREATE TABLE `pay_task`  (
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '二维码的字符串',
   `channel` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '支付渠道名,wechat或alipay',
   `task_extra` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '此订单的附加值，可传激活码和用户名等等，自己分割',
+  `result_extra` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '客户端来询问是否支付成功时，如果支付成功就会返回这个字符串给客户端',
   `mark_sell` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '收款方备注',
   `mark_buy` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '付款方备注',
   `order_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '订单编号',

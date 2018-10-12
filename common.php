@@ -4,7 +4,7 @@ if(!defined('PRIVTE'))
 
 //这里正式环境时，一定要关闭日志，不然有些Notic等会很麻烦
 //需要看日志时，再打开
-error_reporting(E_ALL);//这一句是关掉所有错误显示
+error_reporting(0);//这一句是关掉所有错误显示
 //error_reporting(E_ALL ^ E_WARNING);//E_NOTICE
 ini_set('display_errors',1);//这一句是就算有错误，也返回200，说明服务器处理过了。
 

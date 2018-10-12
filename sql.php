@@ -69,14 +69,17 @@ function isPayed($mark_sell,$qr){
 	global $config;
 	global $mysqli;
 	
-	$sql = "select task_extra from ".$config->tab_task." where mark_sell='".$mark_sell;
+	$sql = "select result_extra from ".$config->tab_task." where mark_sell='".$mark_sell;
 	$sql = $sql."' and url='".$qr;
 	$sql = $sql."' and !isnull(end_time)";
-	$sql = $sql." and length(order_id) > 1";
 	$result = $mysqli->query($sql);
 	if($result->num_rows > 0){
 		$userdata = $result->fetch_assoc();
-		return $userdata["task_extra"];
+		//这里要判断字段是不是为空，如果为空，外面判断以为还没支付呢。。
+		if(empty($userdata["result_extra"])){
+			return true;
+		}
+		return $userdata["result_extra"];
 	}
 	return false;
 }
@@ -166,6 +169,8 @@ function succQr($mark_sell,$money,$order_id,$mark_buy){
 	$sql = $sql."',mark_buy='".$mark_buy;
 	$sql = $sql."' where mark_sell='".$mark_sell;
 	$sql = $sql."' and money=".$money;
+	$sql = $sql." and status=0";
+	
 	$result = $mysqli->query($sql);
 	if($result){
 		addLog($mark_sell."成功充值".sprintf("%.2f",$money/100)."元！",4);
