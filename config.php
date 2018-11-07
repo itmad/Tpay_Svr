@@ -5,8 +5,8 @@ if(!defined('PRIVTE'))
 global $config;
 global $mysqli;
 $config = new stdClass();
-//--------------这里开始配置用户资料，不太懂加的Tpay群：524901982-------------------
-//--------------此文件会被包含到common.php里面-------------------
+//--------这里开始配置用户资料，不太懂加的QQ315096953，群广告太多已解散----
+//--------此文件会被包含到common.php里面-------------------
 
 
 //客户端的通讯密码：只能为一个8位字符，可以符号数字字母等。
@@ -32,7 +32,7 @@ $config->pay_black = 'pay_black';
 //同一IP多少秒内只能请求一次二维码，防止有人一直恶意请求二维码
 $config->pay_speed=5;
 //同一IP在1小时内，最多获取多少次二维码
-$config->pay_count=20;
+$config->pay_count=200;
 
 //7-24点用户在申请二维码时，超过多少秒没返回二维码就算失败，这里必须大于手机端设置的间隔时间
 $config->pay_nor=15;
@@ -80,7 +80,7 @@ function succDo($mark_sell,$money,$task_extra){
 	//这个|test@|等等全部都可以自己定义分割，我只是随便弄来做个演示
 	//实际商用过程中，这些接口通过分割可以实现很多自动发卡自动xx等功能
 	//一个支付接口理论上可以实现太多支持功能，好好理解下为什么，
-	//还是不懂的可以加群询问，Tpay群：524901982--->感谢大家支持。
+	//还是不懂的可以加群询问，QQ315096953--->感谢大家支持。
 	if(strpos($task_extra,"|@test@|")){
 		$extra = explode("|@test@|",$task_extra);
 		if(count($extra)<1 || empty($extra)){
@@ -96,10 +96,10 @@ function succDo($mark_sell,$money,$task_extra){
 		$mailer = new QQMailer(false);
 		$title = 'Tpay相关源码，请查收。';
 		$content = "感谢您的支持<br /> 您的留言为：".(count($extra)>1?$extra[1]:"空")."<Br />";
-		if($money>=180){
+		if($money>=1800){
 			$content=$content."Tpay微信端和服务端完整源码：<br />";
 			$content=$content."https://xxxxx";
-		}else if($money>=280){
+		}else if($money>=8800){
 			$content=$content."Tpay全端完整源码（包括例程）：<br />";
 			$content=$content."https://xxxxx";
 		}else{
