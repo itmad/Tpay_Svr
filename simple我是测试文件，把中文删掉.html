@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维码支付页面</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./tpay.css">
+</head>
+<style type="text/css">
+.margin-top{ margin-top:1em}
+.myContent{width: 90%;margin-left: 5%;}
+.modal-dialog{margin: auto;}
+.mylable{min-width: 118px;}
+.input-group-text{border-top-right-radius: 0;border-bottom-right-radius: 0;border-right: 0}
+.form-control{border-top-right-radius: .25rem;border-bottom-right-radius: .25rem}
+.myInput{vertical-align: middle;}
+#qr img{max-width: 100%;display: inline-block!important;}
+@media screen and (min-width:560px){
+ /* .mylable {
+   margin-left: -24px;
+  } */
+ .pcInput{
+	 min-width: 200px;;
+ }
+}
+
+</style>
+<body>
+	<div class="form text-center myContent">
+		<br>
+		<span class="label label-default">
+			感谢大家的支持，这里可以获取更多资料
+		</span>
+		<br />
+		<div align="center" id="qr" class="margin-top" style="display:none;text-align: center">
+
+		</div>
+		<div class="input-group justify-content-md-center margin-top">
+			<label class="form-control col-md-3" style="border-radius: 0.25rem">
+				<input type="radio" name="channel" value="wechat" checked="checked" class="myInput">
+				微信支付
+			</label>
+			<div class="col-md-1 " style="min-height: 8px">
+			</div>
+			<label class="form-control col-md-3" style="border-radius: 0.25rem">
+				<input type="radio" name="channel" value="alipay" class="myInput">
+				支付宝　
+			</label>
+		</div>
+		<span class="label label-default">
+			这个是一个最简单的Demo <br/>
+		</span>
+		<div class="input-group justify-content-md-center margin-top text-center"
+		align="center" style="line-height: 38px;">
+			<label class="input-group-text">
+				支付金额(元):
+			</label>
+			<input type="number" class="form-control col-md-1 pcInput" id="money" value="2" min="1" max="3000000" style="border-top-right-radius: 0.25rem;border-bottom-right-radius: 0.25rem">
+			
+		</div>
+		<div class="input-group justify-content-md-center margin-top text-center"
+		align="center">
+			<label class=" input-group-text  mylable">
+				充值用户： 
+			</label>
+			<input type="text" class="form-control col-md-1 pcInput" id="user_name" value="test_user">
+		</div>
+		<br>
+		<div class="form-group margin-top">
+			<button type="button" class="btn btn-primary" id="btn_submit" onClick="getQr();">
+				- 扫码支付 -
+			</button>
+		</div>
+		<span style="color:#F30;font-weight:bold;display:none" id="pay_status">支付结果查询中...</span>
+	</div>
+	
+	<!-- 下面是loading的模态框 -->
+	<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop='static' data-keyboard='false'>
+		<div class="modal-dialog" style="width:200px">
+			<div class="modal-content">
+				<div class="modal-body spinner center text-center">
+				  <div class="bounce1"></div>
+				  <div class="bounce2"></div>
+				  <div class="bounce3"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script>
+	var check_thread=0;
+	$('#loading').on('show.bs.modal', function (e) {
+            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+            $(this).css('display', 'block');
+            var modalHeight=$(window).height() / 2 - $('#loading .modal-dialog').height() / 2;
+            $(this).find('.modal-dialog').css({
+                'margin-top': modalHeight
+            });
+    });
+	var qrcode = new QRCode(document.getElementById("qr"), {
+		width : 300,
+		height : 300
+	});
+
+
+	function getQr(){
+		if(check_thread>0){
+			$("#pay_status").text("支付结果查询中...");
+			clearTimeout(check_thread);
+			check_thread=0;
+		}
+		
+		var money=$("#money").val()*100;
+		var user_name=$("#user_name").val();
+		var channel = $("input[name='channel']:checked").val();
+		
+		if(money<1){
+			alert("兄弟，这样不好哦~~嘿嘿");
+			return;
+		}
+		
+		$('#loading').modal('show');
+		$("#qr").css("display","none");
+		
+		//alert(channel+"|"+email+"|"+descp+"|"+money);
+		
+		var url="./pay.php"
+		var params = {command:"applyqr",money:money,user_name:user_name,channel:channel};
+		$.post(url,params,function(data){
+			if(data.status!=1){
+				alert(data.message);
+			}else{
+				if(channel=="alipay"){
+					if(navigator.userAgent.indexOf('Android')>-1){
+						if(confirm("需要直接启动支付宝支付吗？")){
+							window.open (data.data.url)
+						}
+					}
+				}
+				qrcode.makeCode(data.data.url);
+				$("#qr").css("display","inline");
+				$("#pay_status").css("display","inline");
+				//六秒后开始查询是否支付成功
+				check_thread=setTimeout("isPayed('"+data.data.mark_sell+"','"+data.data.url+"',1)",6000);
+			}
+			setTimeout("$('#loading').modal('hide')",800);//如果不延时，在获取太快的时候无法隐藏
+		},"json")
+	}
+	
+	//这里持续去检测订单是否已经处理完成
+	function isPayed(var_mark_sell,qrurl,count){
+		if(count>80){
+			$("#pay_status").text("网络原因查询失败，请自行登录查看即可");
+			return;
+		}
+		var url="./pay.php"
+		var params = {command:"ispayed",mark_sell:var_mark_sell,qr:qrurl};
+		$.post(url,params,function(data){
+			if(data.status!=1){
+				count=count+1;
+				check_thread=setTimeout("isPayed('"+var_mark_sell+"','"+qrurl+"',"+count+")",2000);
+				$("#pay_status").text("支付结果查询中...->"+count+"S");
+				return;
+			}
+			$("#pay_status").text("支付已经成功！支付返回结果："+data.data);
+			alert("支付返回结果："+data.data);
+		},"json")
+	}
+	
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
