@@ -52,6 +52,8 @@
 				支付宝　
 			</label>
 		</div>
+		<a href="http://www.paohuituan.com/pay/test.html"><span style="color:#F30;font-weight:bold;display:none;font-size:1.5em" id="pay_tips"></span></a>
+		<Br />
 		<span class="label label-default">
 			这个是一个最简单的Demo <br/>
 		</span>
@@ -169,6 +171,9 @@
 				$("#pay_status").text("支付结果查询中...->"+count+"S");
 				return;
 			}
+			$("#pay_tips").css("display","inline");
+			$("#pay_tips").text("惹您对速度不满意，点这里可以测试专业平台版。0.1秒取码等更多功能");
+			alert("邮件会自动发送资料到您的邮件，如果未收到请检查垃圾箱哦~");
 			$("#pay_status").text("支付已经成功！支付返回结果："+data.data);
 			alert("支付返回结果："+data.data);
 		},"json")
