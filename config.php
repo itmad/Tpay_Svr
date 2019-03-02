@@ -12,7 +12,7 @@ $config = new stdClass();
 //客户端的通讯密码：只能为一个8位字符，可以符号数字字母等。
 $config->token="D@a4.;1A";
 //收款备注前缀：长度为8位或以下的数字或字母的组合，自己随便写
-$config->mark_sell="编号：";
+$config->mark_sell="编号：";//如果有字母一定要小写小写小写★★★★★
 //mysql的连接地址
 $config->sql_addr="localhost";
 //mysql的连接用户名
