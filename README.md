@@ -1,7 +1,7 @@
 # Tpay_Svr
 Tpay是微信和支付宝的个人免签 24小时全自动回调支付系统的php服务端程序
 
-### Tpay客户端地址在这儿：https://gitee.com/itmad/Tpay
+### Tpay客户端地址：看我的另一个开源项目即可
 
 ### Tpay：全自动，零人工，24小时自动发卡等操作
 ### Tpay：全自动，零人工，24小时自动发卡等操作   重要的事说几遍？
@@ -9,7 +9,7 @@ Tpay是微信和支付宝的个人免签 24小时全自动回调支付系统的p
 ### ------------------------------------我是排版华丽分割线-----------------------------------------------
 ### Tpay：测试地址
  - 本项目已经部署到线下，可以点此在线测试：[点此获取最新版源码和教程](http://www.paohuituan.com/pay) 
- - 视频教程也发布了，熟练后几分钟即可发布：[![Watch the video](http://std.superlist.yaodenglu.com/player_pic.jpg)](http://v.youku.com/v_show/id_XMzg1MjgzNjMzNg==.html)
+ - 视频教程也发布了，熟练后几分钟即可发布：[![Watch the video](https://images.gitee.com/uploads/images/2019/0226/113229_96b60cc3_423953.jpeg)](http://v.youku.com/v_show/id_XMzg1MjgzNjMzNg==.html)
  - 底部有提供开源客户端，都开源了吧
  
 ### Tpay：现有其它项目缺点
@@ -41,14 +41,13 @@ Tpay是微信和支付宝的个人免签 24小时全自动回调支付系统的p
 ### Tpay：项目展示
  - 1、APP就一个界面（简单，就一个简单配置界面）
  
- ![](http://std.superlist.yaodenglu.com/tpay_page.png)
+ ![](https://images.gitee.com/uploads/images/2019/0226/113229_8fffa9c3_423953.png)
  
  - 2、后端也只需要配置一个文件（注释超多）
  
- ![](http://std.superlist.yaodenglu.com/php_page.png)
+ ![](https://images.gitee.com/uploads/images/2019/0226/113230_cff000b2_423953.png)
 
 ### Tpay：服务端
- - 开源的服务端在这里：https://gitee.com/itmad/Tpay_Svr
  - 收款的demo页伸手党们可以：http://www.paohuituan.com/pay 这里下载。
  - PHP纯源码，超级简单粗暴，不太会的可以加群了解。
  
@@ -66,8 +65,8 @@ Tpay是微信和支付宝的个人免签 24小时全自动回调支付系统的p
  
 ### Tpay：感谢捐赠
 
- ![](http://std.superlist.yaodenglu.com/wechat_pay.png?m=s) 
+ ![](https://images.gitee.com/uploads/images/2019/0226/113230_b45c840e_423953.png) 
 
 
- ![](http://std.superlist.yaodenglu.com/alipay_pay.png?m=s)
+ ![](https://images.gitee.com/uploads/images/2019/0226/113229_f7c91889_423953.png)
  
